@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f312d9f3f24cdb944c1453a1accefb, type: 3}
+  m_Name: RetroBlue
+  m_EditorClassIdentifier: 
+  data:
+    pixelationAmount: 3
+    maxColorChannels:
+      red: 1
+      green: 1
+      blue: 2
+      greyScale: 0.115
+    dithering: 0
+    dithering8: 0.442
+    vignette: 0.561
+    innerCurve: 4.7
+    monitorCurve: 0.082
+    monitorInnerSize:
+      width: 0
+      height: 0
+    monitorOutterSize:
+      width: 0.058
+      height: 0.1
+    zoom: 1.17
+    monitorRoundness: 0.2
+    monitorTexture: {fileID: 2800000, guid: a5e897f9f29eb488ba4791cd52d004b5, type: 3}
+    monitorColor: {r: 0.12867041, g: 0.1254902, b: 0.21568628, a: 0.5254902}
+    innerMonitorDarkness: 0.215
+    innerMonitorShine: 0.067
+    colorScans:
+      greenChannelMultiplier: -0.183
+      redBlueChannelMultiplier: 0.173
+      sizeMultiplier: 0.5
+    innerMonitorShineRadius: -0.087
+    innerMonitorShineCurve: 10
+  validationId: 8107982f-c0e2-4489-980b-84e73ed6c3c8

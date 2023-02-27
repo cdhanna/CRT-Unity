@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f312d9f3f24cdb944c1453a1accefb, type: 3}
+  m_Name: Grey
+  m_EditorClassIdentifier: 
+  data:
+    pixelationAmount: 0
+    maxColorChannels:
+      red: 0
+      green: 0
+      blue: 0
+      greyScale: 1
+    dithering: 0
+    vignette: 0.1
+    innerCurve: 20
+    monitorCurve: 0.1
+    monitorInnerSize:
+      width: 0
+      height: 0
+    monitorOutterSize:
+      width: 0.1
+      height: 0.1
+    zoom: 1.25
+    monitorRoundness: 0.2
+    monitorTexture: {fileID: 0}
+    monitorColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    innerMonitorDarkness: 0.6
+    innerMonitorShine: 0.1
+    colorScans:
+      greenChannelMultiplier: 0.1
+      redBlueChannelMultiplier: 0.15
+      sizeMultiplier: 2
+    innerMonitorShineRadius: -0.087
+    innerMonitorShineCurve: 10
