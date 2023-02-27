@@ -27,12 +27,14 @@ namespace BrewedInk.CRT
 		[Tooltip("Each channel controls the maximum amount of values for that channel. A value of 0 means infinite values.")]
 		public ColorChannels maxColorChannels;
 
-		[Tooltip("0 means no dithering. 1 means all dithering. Dithering will help shade a color crunched image to look like it has more coloring that it really does.")]
+		[Tooltip("0 means no dithering. 1 means all dithering. Dithering will help shade a color crunched image to look like it has more coloring that it really does. " +
+		         "This dithering uses a 4x4 bayer dithering matrix.")]
 		[Range(0,1f)]
 		[FormerlySerializedAs("dithering")]
 		public float dithering4 = 0f;
 
-		[Tooltip("0 means no dithering. 1 means all dithering. Dithering will help shade a color crunched image to look like it has more coloring that it really does.")]
+		[Tooltip("0 means no dithering. 1 means all dithering. Dithering will help shade a color crunched image to look like it has more coloring that it really does. " +
+		         "This dithering uses a 8x8 bayer dithering matrix.")]
 		[Range(0,1f)]
 		public float dithering8 = 0f;
 		

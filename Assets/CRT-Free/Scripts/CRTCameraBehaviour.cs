@@ -11,12 +11,10 @@ namespace BrewedInk.CRT
 	{
 		[Header("Configuration")] 
 		public CRTDataObject startConfig;
+		public CRTRenderSettingsObject crtRenderSettings;
 		
-		[Header("Asset References")]
-		public Material CRTMaterial;
-		
-		[Header("Runtime Data (don't edit)")]
-		public Material CRTRuntimeMaterial;
+		[Header("Runtime Data (edit with care!)")]
+		public Material _runtimeMaterial;
 		public CRTData data;
 
 		private string lastValidationId;
@@ -59,18 +57,18 @@ namespace BrewedInk.CRT
 
 		void DestroyMaterial()
 		{
-			if (CRTRuntimeMaterial != null)
+			if (_runtimeMaterial != null)
 			{
-				DestroyImmediate(CRTRuntimeMaterial);
-				CRTRuntimeMaterial = null;
+				DestroyImmediate(_runtimeMaterial);
+				_runtimeMaterial = null;
 			}
 		}
 
 		void CreateMaterial()
 		{
-			if (CRTMaterial != null && CRTRuntimeMaterial == null)
+			if (crtRenderSettings != null && crtRenderSettings.crtMaterial != null && _runtimeMaterial == null)
 			{
-				CRTRuntimeMaterial = new Material(CRTMaterial);
+				_runtimeMaterial = new Material(crtRenderSettings.crtMaterial);
 			}
 
 			if (startConfig != null)
@@ -92,38 +90,38 @@ namespace BrewedInk.CRT
 		private void OnRenderImage(RenderTexture src, RenderTexture dest)
 		{
 			
-			if (CRTRuntimeMaterial != null && data != null)
+			if (_runtimeMaterial != null && data != null)
 			{
-				CRTRuntimeMaterial.SetFloat(PropMaxColorsRed, data.maxColorChannels.red);
-				CRTRuntimeMaterial.SetFloat(PropMaxColorsGreen, data.maxColorChannels.green);
-				CRTRuntimeMaterial.SetFloat(PropMaxColorsBlue, data.maxColorChannels.blue);
-				CRTRuntimeMaterial.SetFloat(PropDitheringAmount, data.dithering4);
-				CRTRuntimeMaterial.SetFloat(PropDitheringAmount8, data.dithering8);
-				CRTRuntimeMaterial.SetFloat(PropVignette, data.vignette);
-				CRTRuntimeMaterial.SetFloat(PropMonitorRoundness, data.monitorRoundness);
-				CRTRuntimeMaterial.SetFloat(PropInnerDarkness, 1-data.innerMonitorDarkness);
-				CRTRuntimeMaterial.SetFloat(PropInnerGlow, data.innerMonitorShine);
-				CRTRuntimeMaterial.SetFloat(PropInnerReflectionRadius, data.innerMonitorShineRadius);
-				CRTRuntimeMaterial.SetFloat(PropInnerReflectionCurve, data.innerMonitorShineCurve);
-				CRTRuntimeMaterial.SetFloat(PropMonitorCurve, data.monitorCurve);
-				CRTRuntimeMaterial.SetFloat(PropInnerCurve, data.innerCurve);
-				CRTRuntimeMaterial.SetFloat(PropZoom, data.zoom);
+				_runtimeMaterial.SetFloat(PropMaxColorsRed, data.maxColorChannels.red);
+				_runtimeMaterial.SetFloat(PropMaxColorsGreen, data.maxColorChannels.green);
+				_runtimeMaterial.SetFloat(PropMaxColorsBlue, data.maxColorChannels.blue);
+				_runtimeMaterial.SetFloat(PropDitheringAmount, data.dithering4);
+				_runtimeMaterial.SetFloat(PropDitheringAmount8, data.dithering8);
+				_runtimeMaterial.SetFloat(PropVignette, data.vignette);
+				_runtimeMaterial.SetFloat(PropMonitorRoundness, data.monitorRoundness);
+				_runtimeMaterial.SetFloat(PropInnerDarkness, 1-data.innerMonitorDarkness);
+				_runtimeMaterial.SetFloat(PropInnerGlow, data.innerMonitorShine);
+				_runtimeMaterial.SetFloat(PropInnerReflectionRadius, data.innerMonitorShineRadius);
+				_runtimeMaterial.SetFloat(PropInnerReflectionCurve, data.innerMonitorShineCurve);
+				_runtimeMaterial.SetFloat(PropMonitorCurve, data.monitorCurve);
+				_runtimeMaterial.SetFloat(PropInnerCurve, data.innerCurve);
+				_runtimeMaterial.SetFloat(PropZoom, data.zoom);
 				
-				CRTRuntimeMaterial.SetFloat(PropInnerSizeX, data.monitorInnerSize.width);
-				CRTRuntimeMaterial.SetFloat(PropInnerSizeY, data.monitorInnerSize.height);
-				CRTRuntimeMaterial.SetFloat(PropDesaturation,data.maxColorChannels.greyScale);
+				_runtimeMaterial.SetFloat(PropInnerSizeX, data.monitorInnerSize.width);
+				_runtimeMaterial.SetFloat(PropInnerSizeY, data.monitorInnerSize.height);
+				_runtimeMaterial.SetFloat(PropDesaturation,data.maxColorChannels.greyScale);
 				
 				
-				CRTRuntimeMaterial.SetFloat(PropOutterSizeX, data.monitorOutterSize.width);
-				CRTRuntimeMaterial.SetFloat(PropOutterSizeY, data.monitorOutterSize.height);
-				CRTRuntimeMaterial.SetVector(PropColorScans, new Vector4
+				_runtimeMaterial.SetFloat(PropOutterSizeX, data.monitorOutterSize.width);
+				_runtimeMaterial.SetFloat(PropOutterSizeY, data.monitorOutterSize.height);
+				_runtimeMaterial.SetVector(PropColorScans, new Vector4
 				{
 					x = data.colorScans.greenChannelMultiplier,
 					y = data.colorScans.redBlueChannelMultiplier,
 					z = data.colorScans.sizeMultiplier
 				});
-				CRTRuntimeMaterial.SetTexture(PropMonitorTexture, data.monitorTexture);
-				CRTRuntimeMaterial.SetColor(PropMonitorColor, data.monitorColor);
+				_runtimeMaterial.SetTexture(PropMonitorTexture, data.monitorTexture);
+				_runtimeMaterial.SetColor(PropMonitorColor, data.monitorColor);
 				if (data.pixelationAmount > 1)
 				{
 					var downSample = Math.Min(300, data.pixelationAmount);
@@ -133,12 +131,12 @@ namespace BrewedInk.CRT
 					var tempDest = RenderTexture.GetTemporary(tempDesc);
 					tempDest.filterMode = FilterMode.Point;
 					Graphics.Blit(src, tempDest);
-					Graphics.Blit(tempDest, dest, CRTRuntimeMaterial);
+					Graphics.Blit(tempDest, dest, _runtimeMaterial);
 					tempDest.Release();
 					return;
 				}
 				
-				Graphics.Blit(src, dest, CRTRuntimeMaterial);
+				Graphics.Blit(src, dest, _runtimeMaterial);
 				return;
 			}
 			
@@ -152,6 +150,7 @@ namespace BrewedInk.CRT
 		[Range(0, 255)]
 		public int red, green, blue;
 
+		[Tooltip("A greyscale value of 1 will completely make the image grey. A value of 0 leaves the image untouched.")]
 		[Range(0, 1)] 
 		public float greyScale;
 	}
