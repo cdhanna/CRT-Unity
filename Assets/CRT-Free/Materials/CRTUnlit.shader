@@ -147,36 +147,21 @@ Shader "Unlit/CRTUnlit"
 	            return uv;    
             }
 
-            static int bayer4[4*4]= {
-                0,8,2,10,
-                12,4,14,6,
-                3,11,1,9,
-                15,7,13,5
-            };
-
-            static int bayer16[8*8]= {
-                0,32,8,40,2,34,10,42,
-                48,16,56,24,50,18,58,26,
-                12,44,4,36,14,46,6,38,
-                60,28,52,20,62,30,54,22,
-                3,35,11,43,1,33,9,41,
-                51,19,59,27,49,17,57,25,
-                15,47,7,39,13,45,5,37,
-                63,31,55,23,61,29,53,21
-            };
-
+            uniform int _BrewedInk_Bayer4[4*4];
+            uniform int _BrewedInk_Bayer8[8*8];
+            
             float4 sampleColor(float2 screenUv, float2 warpedUv)
             {
                 
                 int n4 = 4;
                 int x4 = (screenUv.x * _ScreenParams.x*_DitherScreenScale) % n4;
                 int y4 = (screenUv.y * _ScreenParams.y*_DitherScreenScale) % n4;
-                float m4 = (bayer4[(y4)*n4 + x4] * 1 / pow(n4, 2)) -.5;
+                float m4 = (_BrewedInk_Bayer4[(y4)*n4 + x4] * 1 / pow(n4, 2)) -.5;
 
                 int n8 = 8;
                 int x8 = (screenUv.x * _ScreenParams.x*_DitherScreenScale) % n8;
                 int y8 = (screenUv.y * _ScreenParams.y*_DitherScreenScale) % n8;
-                float m8 = (bayer16[(y8)*n8 + x8] * 1 / pow(n8, 2)) -.5;
+                float m8 = (_BrewedInk_Bayer8[(y8)*n8 + x8] * 1 / pow(n8, 2)) -.5;
                 
                 fixed4 col = tex2D(_MainTex, warpedUv ) + m4*_Spread + m8*_Spread8;
 

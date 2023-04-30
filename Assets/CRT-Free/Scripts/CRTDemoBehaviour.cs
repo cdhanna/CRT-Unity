@@ -48,8 +48,8 @@ namespace BrewedInk.CRT
 		public void ZoomIn()
 		{
 
-			float duration = 5;
-			float startZoom = 4;
+			float duration = 2;
+			float startZoom = 2;
 			float endZoom = 1.1f;
 			IEnumerator Animation()
 			{

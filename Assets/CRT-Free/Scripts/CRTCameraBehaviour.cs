@@ -41,8 +41,26 @@ namespace BrewedInk.CRT
 		private static readonly int PropOutterSizeY = Shader.PropertyToID("_BorderOutterSizeY");
 		private static readonly int PropColorScans = Shader.PropertyToID("_ColorScans");
 		private static readonly int PropDesaturation = Shader.PropertyToID("_Desaturation");
+		private static readonly int PropBrewedInkBayer4 = Shader.PropertyToID("_BrewedInk_Bayer4");
+		private static readonly int PropBrewedInkBayer8 = Shader.PropertyToID("_BrewedInk_Bayer8");
 
-		
+		private static readonly float[] bayer4 = new float[]{
+			0,8,2,10,
+			12,4,14,6,
+			3,11,1,9,
+			15,7,13,5
+		};
+		private static readonly float[] bayer8 = new float []{
+			0,32,8,40,2,34,10,42,
+			48,16,56,24,50,18,58,26,
+			12,44,4,36,14,46,6,38,
+			60,28,52,20,62,30,54,22,
+			3,35,11,43,1,33,9,41,
+			51,19,59,27,49,17,57,25,
+			15,47,7,39,13,45,5,37,
+			63,31,55,23,61,29,53,21
+		};
+
 		[ContextMenu("Reset Material")]
 		public void ResetMaterial()
 		{
@@ -89,9 +107,10 @@ namespace BrewedInk.CRT
 
 		private void OnRenderImage(RenderTexture src, RenderTexture dest)
 		{
-			
 			if (_runtimeMaterial != null && data != null)
 			{
+				Shader.SetGlobalFloatArray(PropBrewedInkBayer4, bayer4);
+				Shader.SetGlobalFloatArray(PropBrewedInkBayer8, bayer8);
 				_runtimeMaterial.SetFloat(PropMaxColorsRed, data.maxColorChannels.red);
 				_runtimeMaterial.SetFloat(PropMaxColorsGreen, data.maxColorChannels.green);
 				_runtimeMaterial.SetFloat(PropMaxColorsBlue, data.maxColorChannels.blue);
